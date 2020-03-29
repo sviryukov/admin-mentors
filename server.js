@@ -70,6 +70,8 @@ MongoClient.connect(db.uri, {
     const router = route(passport, client);
     app.use(router);
 
+    app.use(express.static("assets"));
+
     app.listen(port, () => {
         console.log("We are live on " + port);
     });
