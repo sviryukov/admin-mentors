@@ -12,7 +12,7 @@ const route = (passport, client) => {
 
     pages.map(page => {
         const PageComponent = require('../src/components/' + page.component_name)[page.component_name];
-        router.get(page.url, (request, response) => {
+        router.get(page.url, (page.limitedAccess ? checkIfNotAuthenticated : checkIfAuthenticated), (request, response) => {
             const sheets = new ServerStyleSheets();
             const html = ReactDOMServer.renderToString(
                 sheets.collect(
@@ -26,8 +26,35 @@ const route = (passport, client) => {
         });
     });
 
+    router.post('/signin', (req, res) => {
+        passport.authenticate('signin', (error, user)  => {
+            if (error || !user) {
+                res.sendStatus(401);
+            } else {
+                req.login(user, () => {
+                    res.sendStatus(200);
+                });
+            }
+        })(req, res);
+    });
+
     return router;
 
+};
+
+const checkIfNotAuthenticated = (request, response, next) => {
+    if(request.isAuthenticated()){
+        next();
+    } else{
+        response.redirect("/signin");
+    }
+};
+const checkIfAuthenticated = (request, response, next) => {
+    if(request.isAuthenticated()){
+        response.redirect("/");
+    } else {
+        next();
+    }
 };
 
 export {route};
