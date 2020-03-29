@@ -3,6 +3,7 @@ import {MongoClient, ObjectID} from 'mongodb';
 import db from './config/db';
 import connectMongo from "connect-mongo";
 import session from 'express-session';
+import crypto from 'crypto';
 import passport from 'passport';
 import {Strategy} from 'passport-local';
 import flash from 'connect-flash';
@@ -26,15 +27,14 @@ MongoClient.connect(db.uri, {
     const MongoStore = connectMongo(session);
 
     app.use(session({
-        secret: "admin.mentors.phystech-union",
-        resave: false,
-        saveUninitialized: false,
+        secret: crypto.randomBytes(64).toString('hex'),
+        resave: true,
+        saveUninitialized: true,
         store: new MongoStore({
             client: client,
             dbName: 'miptmentors',
             touchAfter: 24 * 60 * 60
-        }),
-
+        })
     }));
 
     app.use(passport.initialize());
