@@ -1,8 +1,16 @@
 [
   {
     "url": "/",
-    "title": "Панель управления - Клуб Менторов Физтех-Союза",
+    "title": "Панель управления ФС",
     "script": "home",
-    "component_name": "Home"
+    "component_name": "Home",
+    "limitedAccess": true
+  },
+  {
+    "url": "/signin",
+    "title": "Вход | Панель управления ФС",
+    "script": "signin",
+    "component_name": "SignIn",
+    "limitedAccess": false
   }
 ]
