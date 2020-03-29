@@ -7,6 +7,7 @@ import passport from 'passport';
 import {Strategy} from 'passport-local';
 import flash from 'connect-flash';
 import {route} from './route';
+import bodyParser from 'body-parser';
 
 MongoClient.connect(db.uri, {
     useNewUrlParser: true,
@@ -16,6 +17,9 @@ MongoClient.connect(db.uri, {
     if (err) return console.log(err);
 
     const app = express();
+
+    app.use(bodyParser.urlencoded({extended: true}));
+    app.use(bodyParser.json());
 
     const port = 8080;
 
