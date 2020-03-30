@@ -44,7 +44,17 @@ const Form = props => {
             });
             axios.post(props.url, application)
                 .then(res => {
-                    if (res.data.result === 'success') {
+                    if (res.data.result === 'failure') {
+                        if (props.denied) {
+                            props.denied();
+                        } else {
+                            setResult({
+                                completed: true,
+                                severity: 'error',
+                                message: res.data.message || props.alert.denied || 'Введены неверные данные'
+                            });
+                        }
+                    } else {
                         if (props.success) {
                             props.success();
                         } else {
@@ -53,16 +63,6 @@ const Form = props => {
                                 completed: true,
                                 severity: 'success',
                                 message: res.data.message || props.alert.success || 'Успешно'
-                            });
-                        }
-                    } else {
-                        if (props.denied) {
-                            props.denied();
-                        } else {
-                            setResult({
-                                completed: true,
-                                severity: 'error',
-                                message: res.data.message || props.alert.denied || 'Введены неверные данные'
                             });
                         }
                     }

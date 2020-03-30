@@ -31,10 +31,10 @@ const route = (passport, client) => {
             if (err) {
                 res.send(err);
             } else if (!user) {
-                res.send({result: 'denied', message: 'Неверный логин или пароль'});
+                res.send({result: 'denied'});
             } else {
                 req.login(user, () => {
-                    res.send({result: 'success'});
+                    res.sendStatus(200);
                 });
             }
         })(req, res);
