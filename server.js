@@ -6,7 +6,6 @@ import session from 'express-session';
 import crypto from 'crypto';
 import passport from 'passport';
 import {Strategy} from 'passport-local';
-import flash from 'connect-flash';
 import {route} from './route';
 import bodyParser from 'body-parser';
 
@@ -48,10 +47,10 @@ MongoClient.connect(db.uri, {
                 if (user.password === password) {
                     return done(null, user);
                 } else {
-                    return done(null, false, request.flash("error", "Неверный логин или пароль"));
+                    return done(null, false);
                 }
             } else {
-                return done(null, false, request.flash("error", "Неверный логин или пароль"));
+                return done(null, false);
             }
         });
     }));
@@ -64,8 +63,6 @@ MongoClient.connect(db.uri, {
             done(err, user);
         });
     });
-
-    app.use(flash());
 
     const router = route(passport, client);
     app.use(router);
