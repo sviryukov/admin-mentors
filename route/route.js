@@ -27,12 +27,14 @@ const route = (passport, client) => {
     });
 
     router.post('/signin', (req, res) => {
-        passport.authenticate('signin', (error, user)  => {
-            if (error || !user) {
-                res.sendStatus(401);
+        passport.authenticate('signin', (err, user)  => {
+            if (err) {
+                res.send(err);
+            } else if (!user) {
+                res.send({result: 'denied', message: 'Неверный логин или пароль'});
             } else {
                 req.login(user, () => {
-                    res.sendStatus(200);
+                    res.send({result: 'success'});
                 });
             }
         })(req, res);

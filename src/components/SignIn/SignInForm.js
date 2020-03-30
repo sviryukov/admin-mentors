@@ -23,8 +23,9 @@ const SignInForm =  () => {
                       }}
                       url={'/signin'}
                       alert={{
-                          success: 'Вход успешно вполнен',
-                          error: 'Неверный логин или пароль'
+                          success: 'Вход успешно выполнен',
+                          denied: 'Неверный логин или пароль',
+                          error: 'Что-то пошло не так, пожалуйста, повторите позже'
                       }}
                       buttonText='Войти'
                       success={() => window.location.replace('/')}/>

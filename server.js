@@ -43,7 +43,9 @@ MongoClient.connect(db.uri, {
         passReqToCallback: true
     }, (request, username, password, done) => {
         client.db("miptmentors").collection("admins").findOne({username: username}, (err, user) => {
-            if (user) {
+            if (err) {
+                return done(err, false);
+            } else if (user) {
                 if (user.password === password) {
                     return done(null, user);
                 } else {

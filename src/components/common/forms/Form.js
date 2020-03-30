@@ -43,22 +43,40 @@ const Form = props => {
                 application[inputName] = inputData.value;
             });
             axios.post(props.url, application)
-                .then(() => {
-                    if (props.success) props.success();
-                    else {
-                        setData(initialData);
-                        setResult({
-                            completed: true,
-                            severity: 'success'
-                        });
+                .then(res => {
+                    if (res.data.result === 'success') {
+                        if (props.success) {
+                            props.success();
+                        } else {
+                            setData(initialData);
+                            setResult({
+                                completed: true,
+                                severity: 'success',
+                                message: res.data.message || props.alert.success || 'Успешно'
+                            });
+                        }
+                    } else {
+                        if (props.denied) {
+                            props.denied();
+                        } else {
+                            setResult({
+                                completed: true,
+                                severity: 'error',
+                                message: res.data.message || props.alert.denied || 'Введены неверные данные'
+                            });
+                        }
                     }
                 })
                 .catch(() => {
-                    if (props.error) props.error();
-                    else setResult({
-                        completed: true,
-                        severity: 'error'
-                    });
+                    if (props.error) {
+                        props.error();
+                    } else {
+                        setResult({
+                            completed: true,
+                            severity: 'error',
+                            message: props.alert.error || 'Произошла ошибка'
+                        });
+                    }
                 });
         }
     };
@@ -74,7 +92,7 @@ const Form = props => {
             ))}
             <SendButton text={props.buttonText || 'Отправить'} handleClick={handleSend}/>
             <FormResultAlert open={result.completed}
-                             text={props.alert[result.severity]}
+                             text={result.message}
                              severity={result.severity}
                              handleClose={(event, reason) => {
                                  if (reason === 'clickaway') return;
