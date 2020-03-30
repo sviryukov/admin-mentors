@@ -44,7 +44,7 @@ const Form = props => {
             });
             axios.post(props.url, application)
                 .then(res => {
-                    if (res.data.result === 'failure') {
+                    if (res.data.result === 'denied') {
                         if (props.denied) {
                             props.denied();
                         } else {
