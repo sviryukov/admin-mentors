@@ -1,9 +1,23 @@
 [
   {
     "url": "/",
-    "title": "Панель управления ФС",
+    "title": "Панель управления Клуба Менторов Физтех Союза",
     "script": "home",
     "component_name": "Home",
+    "limitedAccess": true
+  },
+  {
+    "url": "/news",
+    "title": "Новости | Панель управления Клуба Менторов Физтех Союза",
+    "script": "news",
+    "component_name": "News",
+    "limitedAccess": true
+  },
+  {
+    "url": "/mentors",
+    "title": "Менторы | Панель управления Клуба Менторов Физтех Союза",
+    "script": "mentors",
+    "component_name": "Mentors",
     "limitedAccess": true
   },
   {

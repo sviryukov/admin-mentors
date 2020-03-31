@@ -1,12 +1,12 @@
 import React from 'react';
 import {Page} from "../common/Page";
 
-const Home = () => {
+const Mentors = () => {
     return (
-        <Page pageName='Панель управления'>
+        <Page pageName='Менторы'>
 
         </Page>
     );
 };
 
-export {Home};
+export {Mentors};
