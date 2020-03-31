@@ -20,11 +20,8 @@ let theme = createMuiTheme({
     },
     typography: {
         h1: {
-            fontSize: '34px',
-            fontWeight: '100',
-            '@media (min-width: 600px)': {
-                fontSize: '40px'
-            }
+            fontSize: '30px',
+            fontWeight: '100'
         }
     }
 });
