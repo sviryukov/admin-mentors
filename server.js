@@ -26,7 +26,7 @@ MongoClient.connect(db.uri, {
     const MongoStore = connectMongo(session);
 
     app.use(session({
-        secret: crypto.randomBytes(64).toString('hex'),
+        secret: 'a',//crypto.randomBytes(64).toString('hex'),
         resave: true,
         saveUninitialized: true,
         store: new MongoStore({
